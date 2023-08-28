@@ -67,17 +67,7 @@ export default function Settings({ navigation }) {
         </Svg>
       </View>
 
-      <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Theme')}
-        >
-          <View style={styles.wrap}>
-            <Feather name="moon" size={24} color="black" />
-            <Text style={styles.buttonText}>Theme</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      
       <View>
         <TouchableOpacity
           style={styles.button}
@@ -100,17 +90,7 @@ export default function Settings({ navigation }) {
           </View>
         </TouchableOpacity>
       </View>
-      <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('FAQ')}
-        >
-          <View style={styles.wrap}>
-            <Image source={require("../assets/Images/FAQs.png")} />
-            <Text style={styles.buttonText}>FAQs</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      
 
       <View>
         <TouchableOpacity

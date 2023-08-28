@@ -39,14 +39,11 @@ export default function LogIn({ navigation }) {
       await signInWithEmailAndPassword(auth, email, password).then(
         async (res) => {
           console.log('res from email side ', res)
-          if (res.user.emailVerified) {
             console.log('uid ', res.user.uid)
             const userData = await getUserData(res.user?.uid);
             console.log("user data ", userData);
             setUserLoggedIn(true);
-          } else {
-            Alert.alert("Email Not Verified", "Verify email to continue");
-          }
+         
         }
       );
       setIsSubmitting(false);

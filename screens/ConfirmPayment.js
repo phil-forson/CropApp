@@ -1,20 +1,50 @@
-
 import { View, Text, Image, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { TextInput } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
+import axios from 'axios'
+
 
 export default function ConfirmPayment({ navigation }) {
 const [selected, setSelected] = React.useState("");
+const [number, setNumber] = useState("");
+token = "45583518-fdb9-46e7-93d9-13976b94f870";
+
+const handleInputChange = (text) => {
+  setNumber(text);
+};
+
+const pay = async () => {
+  const formData = new FormData();
+  formData.append('currency', 'GHS');
+  formData.append('amount', 1.00);
+  formData.append('mode', 'Mobile Money');
+  formData.append('paymentType', selected);
+  formData.append('mobile_network', selected);
+  formData.append('mobile_number', number);
+
+  try {
+    const response = await axios.post('https://paybox.com.co/pay', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer ' + token,
+      },
+    });
+
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const data = [
 {
 key: "1",
-value: "Mtn", //disabled: true },
+value: "Mtn",
 },
-{ key: "2", value: "Vodaphone" },
+{ key: "2", value: "Vodafone" },
 { key: "3", value: "AirtelTigo" },
 ];
 return (
@@ -30,17 +60,20 @@ return (
 
 <View>
 <Text style={styles.flow}>Select payment type</Text>
-
 <SelectList
   setSelected={(val) => setSelected(val)}
   data={data}
   save="value"
+  style={styles.dropdown}
 />
 </View>
 <View>
 <Text style={styles.flow}> Phone Number</Text>
 
-<TextInput style={styles.input} placeholder="Enter your phone number" />
+<TextInput style={styles.input} 
+    placeholder="Enter your phone number" 
+    value={number}
+    onChangeText={handleInputChange}/>
 </View>
 <View style={styles.bottompage}>
 <View style={styles.bottomsection}>
@@ -61,7 +94,7 @@ return (
 
 <TouchableOpacity
   style={styles.button}
-  onPress={() => console.log("Payment made")}
+  onPress={() => pay()}
 >
   <Text style={styles.buttonText}>Pay</Text>
 </TouchableOpacity>
@@ -75,6 +108,12 @@ container: {
 marginTop: "10%",
 paddingVertical: 10,
 paddingHorizontal: 10,
+position: 'relative',
+},
+dropdown: {
+    position: 'absolute', 
+    top: '100%',
+    zIndex: 10,
 },
 
 uppersection: {
@@ -142,7 +181,7 @@ textAlign: "center",
 // justifyContent: "space-between",
 },
 bottompage: {
-marginTop: 260,
+marginTop: '70%',
 },
 bolden: {
 fontWeight: "600",
