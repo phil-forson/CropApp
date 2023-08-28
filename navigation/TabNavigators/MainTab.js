@@ -40,7 +40,7 @@ const MainTab = () => {
         },
       })}
     >
-      {userData.accountType !== "Customer" &&<Tab.Screen
+      {userData.accountType === "Agric Company" && userData.accountType === "Farmer"&&<Tab.Screen
         name="Sell"
         options={{
           tabBarIcon: ({ color }) => (
@@ -49,7 +49,7 @@ const MainTab = () => {
         }}
         component={SellStackNavigator}
       />}
-      {userData.accountType !== "Agric Company" && <Tab.Screen
+      {userData.accountType === "Customer" && userData.accountType === "Farmer" && <Tab.Screen
         name="Buy"
         options={{
           tabBarIcon: ({ color }) => (
